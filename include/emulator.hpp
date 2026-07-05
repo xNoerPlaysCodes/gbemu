@@ -43,9 +43,9 @@ public:
 
     u64 clock = 0;
     u8 ime = 0;
-    u8 div = 0; // 16384 Hz
+    u8 div = 0xAB; // 16384 Hz
     u8 tima = 0; // specified by tma
-    u8 tac = 0;
+    u8 tac = 0xF8;
     u8 tma = 0;
 
     enum class tima_state_e {
@@ -53,16 +53,16 @@ public:
         pending
     } tima_state = tima_state_e::normal;
 
-    u8 lcd_control = 0;
+    u8 lcd_control = 0x91;
 
     u8 ly = 0;
     u8 lyc = 0;
-    u8 stat = 0;
+    u8 stat = 0x85;
 
-    u8 bank = 0;
+    u8 bank = 0x01;
 
-    u8 ie = 0;
-    u8 _if = 0;
+    u8 ie = 0x00;
+    u8 _if = 0xE1;
 
     bool stop_mode = false;
 
@@ -80,12 +80,12 @@ public:
 
     void incr_tima() noexcept;
 
-    u16 af = 0;
-    u16 bc = 0;
-    u16 de = 0;
-    u16 hl = 0;
-    u16 sp = 0;
-    u16 pc = 0;
+    u16 af = 0x01B0;
+    u16 bc = 0x0013;
+    u16 de = 0x00D8;
+    u16 hl = 0x0148;
+    u16 sp = 0xFFFE;
+    u16 pc = 0x0100;
 
     void push(u8 value) noexcept;
     void push16(u16 value) noexcept;
@@ -266,7 +266,7 @@ public:
         carry
     };
 
-    inline constexpr cond u8_cond(u8 u8) {
+    inline constexpr cond u8_cond(u8 u8) const noexcept {
         switch (u8) {
             case 0:
                 return cond::notzero;
@@ -280,6 +280,8 @@ public:
                 return cond::null;
         }
     }
+
+    bool is_cond(cond c) const noexcept;
 
     inline constexpr u16 le_combine(u8 low, u8 high) {
         return (high << 8) | low;

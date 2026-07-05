@@ -11,7 +11,8 @@ enum class operand_type : u8 {
     i_16,
     i_8,
     r_16,
-    r_8
+    r_8,
+    condition
 };
 
 struct instruction_t {
@@ -23,6 +24,7 @@ struct instruction_t {
             u8 i_8;
             u16 r_16;
             u8 r_8;
+            u8 condition;
         };
         operand_type type = operand_type::null;
     };

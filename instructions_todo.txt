@@ -1,15 +1,4 @@
-== CURRENT ==
-JP n16
-JP cc,n16
-JP HL
-JR n16
-JR cc,n16
-CALL n16
-CALL cc,n16
-RET
-RET cc
-RETI
-RST vec
+== Current ==
 
 == Left ==
 AND A,r8
@@ -17,31 +6,17 @@ AND A,[HL]
 AND A,n8
 BIT u3,r8
 BIT u3,[HL]
-CALL n16
-CALL cc,n16
 CP A,r8
 CP A,[HL]
 CP A,n8
 DI
 EI
 HALT
-JP n16
-JP cc,n16
-JP HL
-JR n16
-JR cc,n16
 OR A,r8
 OR A,[HL]
 OR A,n8
-POP AF
-POP r16
-PUSH AF
-PUSH r16
 RES u3,r8
 RES u3,[HL]
-RET
-RET cc
-RETI
 RL r8
 RL [HL]
 RLC r8
@@ -50,7 +25,6 @@ RR r8
 RR [HL]
 RRC r8
 RRC [HL]
-RST vec
 SBC A,r8
 SBC A,[HL]
 SBC A,n8

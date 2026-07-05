@@ -1,9 +1,8 @@
-
 #include "instructions.hpp"
 #include "emulator.hpp"
 
 namespace instruction {
-    void inc(emulator_t *emu, const instruction_t &ins) noexcept {
+    void dec(emulator_t *emu, const instruction_t &ins) noexcept {
         if (ins.operands[0].type == operand_type::r_16) {
             u16 *reg = emu->r16_to_reg(ins.operands[0].r_16);
             (*reg)--;

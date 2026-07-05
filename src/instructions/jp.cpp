@@ -8,12 +8,15 @@ namespace instruction {
             return;
         }
 
-        if (ins.operands[0].type == operand_type::memory_address) {
-            emu->pc = ins.operands[0].memory_address;
-            emu->m_cycle(); // takes 4 cycles instead of what i 
-                            // expected (3)
-        } else if (ins.operands[0].type == operand_type::) {
-            // TODO: Implement
+        if (ins.operands[0].type == operand_type::condition) {
+            if (emu->is_cond(emu->u8_cond(ins.operands[0].condition))) {
+                emu->m_cycle();
+                emu->pc = ins.operands[1].i_16;
+            }
+        } else if (ins.operands[0].type == operand_type::i_16) {
+            emu->m_cycle();
+            emu->pc = ins.operands[0].i_16;
         }
     }
 }
+
