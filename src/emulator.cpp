@@ -786,7 +786,7 @@ instruction_t emulator_t::decode(u8 opcode, cycler<u8> n_plus_1, cycler<u8> n_pl
         };
     } else if (opcode >= 0b10100000 && opcode <= 0b10100111) {
         return {
-            .handler = i::and,
+            .handler = i::and_,
             .cur_pc = pc,
             .opcode = opcode,
             .bytes = 1,
@@ -803,7 +803,7 @@ instruction_t emulator_t::decode(u8 opcode, cycler<u8> n_plus_1, cycler<u8> n_pl
         };
     } else if (opcode >= 0b10101000 && opcode <= 0b10101111) {
         return {
-            .handler = i::xor,
+            .handler = i::xor_,
             .cur_pc = pc,
             .opcode = opcode,
             .bytes = 1,
@@ -820,7 +820,7 @@ instruction_t emulator_t::decode(u8 opcode, cycler<u8> n_plus_1, cycler<u8> n_pl
         };
     } else if (opcode >= 0b10110000 && opcode <= 0b10110111) {
         return {
-            .handler = i::or,
+            .handler = i::or_,
             .cur_pc = pc,
             .opcode = opcode,
             .bytes = 1,

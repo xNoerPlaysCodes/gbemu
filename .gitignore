@@ -27,3 +27,5 @@ windeps/
 
 # Junk stuff
 ignore_dir/*
+
+cmake-build*

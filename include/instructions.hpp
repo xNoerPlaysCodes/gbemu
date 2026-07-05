@@ -54,6 +54,11 @@ namespace instruction {
     void add(emulator_t *, const instruction_t &) noexcept;
     void sub(emulator_t *, const instruction_t &) noexcept;
     void adc(emulator_t *, const instruction_t &) noexcept;
+    void sbc(emulator_t *, const instruction_t &) noexcept;
+    void or_(emulator_t *, const instruction_t &) noexcept;
+    void and_(emulator_t *, const instruction_t &) noexcept;
+    void xor_(emulator_t *, const instruction_t &) noexcept;
+    void cp(emulator_t *, const instruction_t &) noexcept;
 
     void jp(emulator_t *, const instruction_t &) noexcept;
     void jr(emulator_t *, const instruction_t &) noexcept;
