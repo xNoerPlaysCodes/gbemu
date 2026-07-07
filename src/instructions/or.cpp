@@ -2,5 +2,19 @@
 #include "emulator.hpp"
 
 namespace instruction {
-    void or_(emulator_t *, const instruction_t &) noexcept {}
+    void or_(emulator_t *emu, const instruction_t &ins) noexcept {
+        if (ins.operands[0].type == operand_type::r_8) {
+            u8 *dst = emu->r8_to_reg(ins.operands[0].r_8);
+            if (ins.operands[1].type == operand_type::r_8) {
+                u8 *src = emu->r8_to_reg(ins.operands[1].r_8);
+                *dst |= *src;
+            } else if (ins.operands[1].type == operand_type::memory_address_reg) {
+                u8 src = emu->read8(*emu->r16mem_to_reg(ins.operands[1].memory_address_reg));
+                *dst |= src;
+            } else if (ins.operands[1].type == operand_type::i_8) {
+                u8 src = ins.operands[1].i_8;
+                *dst |= src;
+            }
+        }
+    }
 }

@@ -192,6 +192,10 @@ public:
         return (byte >> start) & 0b111;
     }
 
+    inline constexpr u8 get_cond(u8 byte, u8 start) {
+        return (byte >> start) & 0b11;
+    }
+
     inline constexpr u16* r16_to_reg(u8 r16) {
         switch (r16) {
             case 0:

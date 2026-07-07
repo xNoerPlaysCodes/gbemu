@@ -852,6 +852,179 @@ instruction_t emulator_t::decode(u8 opcode, cycler<u8> n_plus_1, cycler<u8> n_pl
                 }
             }
         };
+    } else if (opcode == 0xC6) { // add a, imm8
+        return {
+            .handler = i::add,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 2,
+            .operands = {
+                {
+                    .r_8 = 7, // a
+                    .type = operand_type::r_8
+                },
+                {
+                    .i_8 = n_plus_1,
+                    .type = operand_type::i_8
+                }
+            }
+        };
+    } else if (opcode == 0xCE) { // adc a, imm8
+        return {
+            .handler = i::adc,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 2,
+            .operands = {
+                {
+                    .r_8 = 7, // a
+                    .type = operand_type::r_8
+                },
+                {
+                    .i_8 = n_plus_1,
+                    .type = operand_type::i_8
+                }
+            }
+        };
+    } else if (opcode == 0xD6) { // sub a, imm8
+        return {
+            .handler = i::sub,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 2,
+            .operands = {
+                {
+                    .r_8 = 7, // a
+                    .type = operand_type::r_8
+                },
+                {
+                    .i_8 = n_plus_1,
+                    .type = operand_type::i_8
+                }
+            }
+        };
+    } else if (opcode == 0xDE) { // sbc a, imm8
+        return {
+            .handler = i::sbc,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 2,
+            .operands = {
+                {
+                    .r_8 = 7, // a
+                    .type = operand_type::r_8
+                },
+                {
+                    .i_8 = n_plus_1,
+                    .type = operand_type::i_8
+                }
+            }
+        };
+    } else if (opcode == 0xE6) { // and a, imm8
+        return {
+            .handler = i::and_,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 2,
+            .operands = {
+                {
+                    .r_8 = 7, // a
+                    .type = operand_type::r_8
+                },
+                {
+                    .i_8 = n_plus_1,
+                    .type = operand_type::i_8
+                }
+            }
+        };
+    } else if (opcode == 0xEE) { // xor a, imm8
+        return {
+            .handler = i::xor_,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 2,
+            .operands = {
+                {
+                    .r_8 = 7, // a
+                    .type = operand_type::r_8
+                },
+                {
+                    .i_8 = n_plus_1,
+                    .type = operand_type::i_8
+                }
+            }
+        };
+    } else if (opcode == 0xF6) { // or a, imm8
+        return {
+            .handler = i::or_,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 2,
+            .operands = {
+                {
+                    .r_8 = 7, // a
+                    .type = operand_type::r_8
+                },
+                {
+                    .i_8 = n_plus_1,
+                    .type = operand_type::i_8
+                }
+            }
+        };
+    } else if (opcode == 0xFE) { // cp a, imm8
+        return {
+            .handler = i::cp,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 2,
+            .operands = {
+                {
+                    .r_8 = 7, // a
+                    .type = operand_type::r_8
+                },
+                {
+                    .i_8 = n_plus_1,
+                    .type = operand_type::i_8
+                }
+            }
+        };
+    } else if (fits_pattern("110xx000", opcode)) {
+        return {
+            .handler = i::ret,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 1,
+            .operands = {
+                {
+                    .condition = get_cond(opcode, 3),
+                    .type = operand_type::condition
+                }
+            }
+        };
+    } else if (opcode == 0xC9) {
+        return {
+            .handler = i::ret,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 1,
+            .operands = {}
+        };
+    } else if (opcode == 0xD9) {
+        return {
+            .handler = i::reti,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 1,
+            .operands = {}
+        };
+    } else if (opcode == 0xD9) {
+        return {
+            .handler = i::reti,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 1,
+            .operands = {}
+        };
     }
     else {
         spdlog::critical("unimplemented instruction at PC=0x{:04X}: 0x{:X}", pc, opcode);

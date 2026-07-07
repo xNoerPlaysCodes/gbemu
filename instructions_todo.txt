@@ -1,20 +1,19 @@
-== Current ==
-
-== Left ==
-AND A,r8
-AND A,[HL]
-AND A,n8
-BIT u3,r8
-BIT u3,[HL]
+== Behavioural ==
+SBC A,r8
+SBC A,[HL]
+SBC A,n8
 CP A,r8
 CP A,[HL]
 CP A,n8
+
+== Current ==
+
+== Left ==
+BIT u3,r8
+BIT u3,[HL]
 DI
 EI
 HALT
-OR A,r8
-OR A,[HL]
-OR A,n8
 RES u3,r8
 RES u3,[HL]
 RL r8
@@ -25,9 +24,6 @@ RR r8
 RR [HL]
 RRC r8
 RRC [HL]
-SBC A,r8
-SBC A,[HL]
-SBC A,n8
 SET u3,r8
 SET u3,[HL]
 SLA r8
@@ -39,6 +35,3 @@ SRL [HL]
 STOP
 SWAP r8
 SWAP [HL]
-XOR A,r8
-XOR A,[HL]
-XOR A,n8
