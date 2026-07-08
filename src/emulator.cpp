@@ -1017,13 +1017,48 @@ instruction_t emulator_t::decode(u8 opcode, cycler<u8> n_plus_1, cycler<u8> n_pl
             .bytes = 1,
             .operands = {}
         };
-    } else if (opcode == 0xD9) {
+    } else if (opcode == 0xF3) {
         return {
-            .handler = i::reti,
+            .handler = i::di,
             .cur_pc = pc,
             .opcode = opcode,
             .bytes = 1,
             .operands = {}
+        };
+    } else if (opcode == 0xFD) {
+        return {
+            .handler = i::ei,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 1,
+            .operands = {}
+        };
+    } else if (opcode == 0xC3) {
+        // jp a16
+        return {
+            .handler = i::jp,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 3,
+            .operands = {
+                {
+                    .i_16 = le_combine(n_plus_1, n_plus_2),
+                    .type = operand_type::i_16
+                }
+            }
+        };
+    } else if (opcode >= 0xC7 && opcode <= 0xFF) {
+        return {
+            .handler = i::rst,
+            .cur_pc = pc,
+            .opcode = opcode,
+            .bytes = 1,
+            .operands = {
+                {
+                    .i_8 = get_r16(opcode, 3), // not actually r16, but it works so yeah
+                    .type = operand_type::i_8
+                }
+            }
         };
     }
     else {

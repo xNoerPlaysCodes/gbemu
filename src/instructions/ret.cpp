@@ -14,11 +14,7 @@ namespace instruction {
         if (ins.opcode == 0xC9) { // ret
             emu->m_cycle();
             emu->ret();
-        } else if (ins.opcode == 0xD9) { // reti
-            emu->m_cycle();
-            emu->ime = 1;
-            emu->ret();
-        } 
+        }
     }
 }
 

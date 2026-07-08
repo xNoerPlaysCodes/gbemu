@@ -48,6 +48,8 @@ add_executable(${PROJECT_NAME}
     src/globals.cpp
 
     ${INSTRUCTION_SOURCES}
+        src/instructions/reti.cpp
+        src/instructions/ei.cpp
 )
 target_include_directories(${PROJECT_NAME} PRIVATE
     include

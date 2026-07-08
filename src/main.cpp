@@ -194,6 +194,7 @@ int main(int argc, char **argv) {
     }
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+	spdlog::info("Window of {}x{} size (scale={})", fb_x * scale, fb_y * scale, scale);
     InitWindow(fb_x * scale, fb_y * scale, "gbemu");
     SetTargetFPS(60);
 
@@ -236,6 +237,7 @@ int main(int argc, char **argv) {
         BeginTextureMode(rtex);
         ClearBackground(Color(26, 26, 26));
         {
+        	DrawRectangle(0, 0, 140, 140, RED);
             // TODO: Draw Shit Here
         }
         EndTextureMode();

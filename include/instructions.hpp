@@ -66,4 +66,7 @@ namespace instruction {
     void ret(emulator_t *, const instruction_t &) noexcept;
     void reti(emulator_t *, const instruction_t &) noexcept;
     void rst(emulator_t *, const instruction_t &) noexcept;
+
+    void di(emulator_t *, const instruction_t &) noexcept;
+    void ei(emulator_t *, const instruction_t &) noexcept;
 }
