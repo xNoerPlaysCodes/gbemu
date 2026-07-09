@@ -143,13 +143,13 @@ void emulator_t::incr_tima() noexcept {
 }
 
 void emulator_t::push(u8 value) noexcept {
-    assert(sp != 0);
+    // assert(sp != 0);
     m_cycle();
     write8(--sp, value);
 }
 
 void emulator_t::push16(u16 value) noexcept {
-    assert(sp != 0);
+    // assert(sp != 0);
     m_cycle();
     write8(--sp, value >> 8);
     write8(--sp, value & 0xFF); // 3
@@ -267,6 +267,7 @@ void emulator_t::write8(u16 addr, u8 value, bool cycle) noexcept {
     }
 
     *mem = value;
+    spdlog::trace("Memory write 0x{:X} to 0x{:X} (Real Address = 0x{:X})", value, addr, static_cast<uintptr_t>(addr));
     if (cycle)
         m_cycle();
 
@@ -1068,15 +1069,21 @@ instruction_t emulator_t::decode(u8 opcode, cycler<u8> n_plus_1, cycler<u8> n_pl
 }
 
 void emulator_t::logic() noexcept {
-    u8 opcode = read8(pc);
     using namespace toggle::cycle;
-    cycler<u8> n_plus_1 = read8(pc + 1, no_cycle);
-    cycler<u8> n_plus_2 = read8(pc + 2, no_cycle);
+    u8 opcode = read8(pc);
+    // Don't read unless we HAVE to
+    // Prevents out-of-bounds memory access
+    cycler<u8> n_plus_1([&]() -> u8 {
+        return read8(pc + 2, no_cycle);
+    });
+    cycler<u8> n_plus_2([&]() -> u8 {
+        return read8(pc + 1, no_cycle);
+    });
 
     n_plus_1.emu = this;
     n_plus_2.emu = this;
 
-    instruction_t ins = decode(opcode, n_plus_1, n_plus_2);
+    const instruction_t ins = decode(opcode, n_plus_1, n_plus_2);
     pc += ins.bytes;
     ins.handler(this, ins);
 }

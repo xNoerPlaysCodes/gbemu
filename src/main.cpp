@@ -254,10 +254,14 @@ int main(int argc, char **argv) {
 
             float step = 1. / tgt;
 
-            while (acc >= step) {
-                emulator.step();
-                acc -= step;
-            }
+        	// Temporary step 1 only
+        	// FIXME: Replcace
+        	emulator.step(1024);
+
+            // while (acc >= step) {
+            //     emulator.step();
+            //     acc -= step;
+            // }
         } else {
             last = 0.0;
         }

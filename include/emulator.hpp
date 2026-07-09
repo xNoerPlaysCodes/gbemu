@@ -308,11 +308,16 @@ public:
 template<typename T>
 struct cycler {
 private:
+    std::function<T()> getter = nullptr;
     T value;
 public:
     emulator_t *emu = nullptr;
 public:
     T view() noexcept {
+        if (getter != nullptr) {
+            emu->m_cycle();
+            return getter();
+        }
         emu->m_cycle();
         return value;
     }
@@ -325,5 +330,6 @@ public:
 
     cycler() = default;
     cycler(T v) : value(v) {}
+    cycler(std::function<T()> getter) : getter(getter) {}
     cycler(emulator_t *emu, T v) : value(v), emu(emu) {}
 };
