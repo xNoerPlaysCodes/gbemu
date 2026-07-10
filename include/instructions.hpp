@@ -40,6 +40,7 @@ namespace instruction {
     void nop(emulator_t *, const instruction_t &) noexcept;
     void ld(emulator_t *, const instruction_t &) noexcept;
     void inc(emulator_t *, const instruction_t &) noexcept;
+    void dec(emulator_t *, const instruction_t &) noexcept;
 
     // grp_bits
     void rlca(emulator_t *, const instruction_t &) noexcept;

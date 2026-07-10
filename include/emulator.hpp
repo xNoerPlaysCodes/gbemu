@@ -25,6 +25,9 @@ namespace toggle::cycle {
 struct emulator_t {
 public:
     static u8 boot_room[256];
+    struct {
+        u64 decoded_instructions = 0;
+    } debug_stats;
     static constexpr u8 int_vblank  = 0x40;
     static constexpr u8 int_stat     = 0x48;
     static constexpr u8 int_timer   = 0x50;
